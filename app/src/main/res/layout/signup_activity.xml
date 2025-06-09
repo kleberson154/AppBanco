@@ -71,7 +71,7 @@
 
     <EditText
         android:id="@+id/editTextEmailAddress"
-        android:layout_width="343dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="26dp"
         android:layout_marginTop="4dp"
@@ -88,7 +88,7 @@
 
     <EditText
         android:id="@+id/editTextPassword"
-        android:layout_width="343dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="26dp"
         android:layout_marginTop="4dp"
@@ -105,7 +105,7 @@
 
     <EditText
         android:id="@+id/editTextConfirmPassword"
-        android:layout_width="343dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="26dp"
         android:layout_marginTop="4dp"
@@ -123,13 +123,13 @@
     <Button
         android:id="@+id/buttonSignUp"
         android:layout_width="179dp"
-        android:layout_height="59dp"
+        android:layout_height="@string/HeightButton"
         android:layout_marginTop="28dp"
         android:backgroundTint="@color/primary"
         android:text="@string/sign_up"
         android:textColorLink="@color/primary"
         android:textSize="20sp"
-        app:cornerRadius="20dp"
+        app:cornerRadius="@string/RadiusButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword" />
