@@ -15,7 +15,7 @@ class ProfileCreateActivity: AppCompatActivity() {
         val lastName = findViewById<EditText>(R.id.editTextLastName)
         val buttonSet = findViewById<Button>(R.id.buttonSet)
 
-        val accountController = AccountController()
+        val accountController = AccountController(this)
 
         buttonSet.setOnClickListener {
             val firstNameText = firstName.text.toString()
