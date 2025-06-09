@@ -21,7 +21,7 @@ class SignUpActivity: AppCompatActivity() {
         val editTextPassword = findViewById<TextView>(R.id.editTextPassword)
         val editTextConfirmPassword = findViewById<TextView>(R.id.editTextConfirmPassword)
 
-        val accountController = AccountController()
+        val accountController = AccountController(this)
 
         buttonSignUp.setOnClickListener({
             accountController.createAccount(
@@ -29,6 +29,8 @@ class SignUpActivity: AppCompatActivity() {
                 editTextPassword.text.toString(),
                 editTextConfirmPassword.text.toString(),
             )
+            val intent = Intent(this, ProfileCreateActivity::class.java)
+            startActivity(intent)
         })
 
         linkLogin.setOnClickListener {
