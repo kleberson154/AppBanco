@@ -11,4 +11,6 @@
     <string name="log_in">Log in</string>
     <string name="logo">logo</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
+    <string name="RadiusButton">20dp</string>
+    <string name="HeightButton">60dp</string>
 </resources>
