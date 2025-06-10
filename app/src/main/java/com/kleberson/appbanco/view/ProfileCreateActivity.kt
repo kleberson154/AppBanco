@@ -1,5 +1,6 @@
 package com.kleberson.appbanco.view
 
+import android.content.Intent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -29,6 +30,7 @@ class ProfileCreateActivity: AppCompatActivity() {
                 }
 
                 accountController.setName(firstNameText, lastNameText)
+                startActivity(Intent(this, PhoneCreateActivity::class.java))
             }catch (e: EmptyFieldException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }
