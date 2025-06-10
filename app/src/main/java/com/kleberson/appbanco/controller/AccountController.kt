@@ -5,7 +5,7 @@ import android.util.Log
 import com.kleberson.appbanco.database.Database
 import com.kleberson.appbanco.model.Account
 
-class AccountController(private val context: Context) {
+class AccountController(context: Context) {
     var account: Account = Account("", "", "", "", "")
     var db = Database(context)
 
@@ -16,25 +16,19 @@ class AccountController(private val context: Context) {
 
     fun createAccount(email: String, password: String, firstName: String, lastName: String, phone: String) {
         account = Account(email, password, firstName, lastName, phone)
+        db.insertAccount(account.email, account.password, account.firstName, account.lastName, account.phone)
         Log.d("MVC_controller", "Conta criada com sucesso - Dados: ${account.toString()}")
     }
 
     fun login(email: String, password: String): Boolean {
-        return account.email == email && account.password == password
-    }
-
-    fun setName(firstName: String, lastName: String) {
-        account.firstName = firstName
-        account.lastName = lastName
-        Log.d("MVC_controller", "Dados salvos: ${account.toString()}")
-    }
-
-    fun setPhone(phone: String) {
-        account.phone = phone
-        Log.d("MVC_controller", "Dados salvos: ${account.toString()}")
-    }
-
-    fun confirmPassword(password: String, confirmPassword: String): Boolean {
-        return password == confirmPassword
+        val accountFromDb = db.getAccountByEmail(email)
+        return if (accountFromDb != null && accountFromDb.password == password) {
+            account = accountFromDb
+            Log.d("MVC_controller", "Login bem-sucedido: ${account.toString()}")
+            true
+        } else {
+            Log.d("MVC_controller", "Falha no login: email ou senha incorretos")
+            false
+        }
     }
 }
