@@ -1,0 +1,39 @@
+package com.kleberson.appbanco.view
+
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.kleberson.appbanco.R
+import com.kleberson.appbanco.controller.AccountController
+import com.kleberson.appbanco.exception.EmptyFieldException
+
+class PhoneCreateActivity: AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.phone_create_activity)
+
+        val editTextPhone = findViewById<EditText>(R.id.editTextPhone)
+        val buttonPhone = findViewById<Button>(R.id.buttonPhone)
+
+        val accountController = AccountController(this)
+
+        buttonPhone.setOnClickListener {
+            try{
+                val phone = editTextPhone.text.toString()
+
+                if (phone.isBlank()) {
+                    throw EmptyFieldException("Todos os campos devem ser preenchidos.")
+                }
+
+                accountController.createAccount(phone)
+                startActivity(Intent(this, MainActivity::class.java))
+            }catch (e: EmptyFieldException) {
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}
