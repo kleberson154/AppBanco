@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmailSignUp" />
 
     <TextView
         android:id="@+id/textViewConfirmPassword"
@@ -67,10 +67,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.101"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPasswordSignUp" />
 
     <EditText
-        android:id="@+id/editTextEmailAddress"
+        android:id="@+id/editTextEmailSignUp"
         android:layout_width="343dp"
         android:layout_height="48dp"
         android:layout_marginStart="26dp"
@@ -87,7 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_Email" />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/editTextPasswordSignUp"
         android:layout_width="343dp"
         android:layout_height="48dp"
         android:layout_marginStart="26dp"
