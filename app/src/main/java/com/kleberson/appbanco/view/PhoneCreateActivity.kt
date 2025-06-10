@@ -29,7 +29,15 @@ class PhoneCreateActivity: AppCompatActivity() {
                     throw EmptyFieldException("Todos os campos devem ser preenchidos.")
                 }
 
-                accountController.createAccount(phone)
+                getSharedPreferences("save_profile", MODE_PRIVATE).edit().putString("phone", phone).apply()
+                val sharedPref = this.getSharedPreferences("save_profile", MODE_PRIVATE)
+                accountController.createAccount(sharedPref.getString("email", "") ?: "",
+                    sharedPref.getString("password", "") ?: "",
+                    sharedPref.getString("firstName", "") ?: "",
+                    sharedPref.getString("lastName", "") ?: "",
+                    phone)
+                accountController.login(sharedPref.getString("email", "") ?: "",
+                        sharedPref.getString("password", "") ?: "")
                 startActivity(Intent(this, MainActivity::class.java))
             }catch (e: EmptyFieldException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
