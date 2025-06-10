@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
 import com.kleberson.appbanco.controller.AccountController
 import com.kleberson.appbanco.exception.EmptyFieldException
+import com.kleberson.appbanco.exception.FailedLoginException
 
 class LoginActivity: AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -46,9 +47,11 @@ class LoginActivity: AppCompatActivity() {
                 if(accountController.login(email, password)) {
                     startActivity(Intent(this, MainActivity::class.java))
                 } else {
-                    throw Exception("Falha ao fazer login. Verifique suas credenciais e tente novamente.")
+                    throw FailedLoginException()
                 }
-            }catch (e: EmptyFieldException) {
+            } catch (e: EmptyFieldException) {
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+            } catch (e: FailedLoginException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }
         }
