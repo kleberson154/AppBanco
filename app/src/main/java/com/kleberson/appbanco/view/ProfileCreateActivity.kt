@@ -2,9 +2,11 @@ package com.kleberson.appbanco.view
 
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
 import com.kleberson.appbanco.controller.AccountController
+import com.kleberson.appbanco.exception.EmptyFieldException
 
 class ProfileCreateActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
@@ -18,9 +20,18 @@ class ProfileCreateActivity: AppCompatActivity() {
         val accountController = AccountController(this)
 
         buttonSet.setOnClickListener {
-            val firstNameText = firstName.text.toString()
-            val lastNameText = lastName.text.toString()
-            accountController.setName(firstNameText, lastNameText)
+            try{
+                val firstNameText = firstName.text.toString()
+                val lastNameText = lastName.text.toString()
+
+                if (firstNameText.isBlank() || lastNameText.isBlank()) {
+                    throw EmptyFieldException("Todos os campos devem ser preenchidos.")
+                }
+
+                accountController.setName(firstNameText, lastNameText)
+            }catch (e: EmptyFieldException) {
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
