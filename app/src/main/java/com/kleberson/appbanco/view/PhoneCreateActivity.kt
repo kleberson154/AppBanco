@@ -1,5 +1,6 @@
 package com.kleberson.appbanco.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.widget.Button
 import android.widget.EditText
@@ -9,28 +10,27 @@ import com.kleberson.appbanco.R
 import com.kleberson.appbanco.controller.AccountController
 import com.kleberson.appbanco.exception.EmptyFieldException
 
-class ProfileCreateActivity: AppCompatActivity() {
+class PhoneCreateActivity: AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.profile_create_activity)
+        setContentView(R.layout.phone_create_activity)
 
-        val firstName = findViewById<EditText>(R.id.editTextFirstName)
-        val lastName = findViewById<EditText>(R.id.editTextLastName)
-        val buttonSet = findViewById<Button>(R.id.buttonSet)
+        val editTextPhone = findViewById<EditText>(R.id.editTextPhone)
+        val buttonPhone = findViewById<Button>(R.id.buttonPhone)
 
         val accountController = AccountController(this)
 
-        buttonSet.setOnClickListener {
+        buttonPhone.setOnClickListener {
             try{
-                val firstNameText = firstName.text.toString()
-                val lastNameText = lastName.text.toString()
+                val phone = editTextPhone.text.toString()
 
-                if (firstNameText.isBlank() || lastNameText.isBlank()) {
+                if (phone.isBlank()) {
                     throw EmptyFieldException("Todos os campos devem ser preenchidos.")
                 }
 
-                accountController.setName(firstNameText, lastNameText)
-                startActivity(Intent(this, PhoneCreateActivity::class.java))
+                accountController.createAccount(phone)
+                startActivity(Intent(this, MainActivity::class.java))
             }catch (e: EmptyFieldException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }

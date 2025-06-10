@@ -36,7 +36,6 @@ class SignUpActivity: AppCompatActivity() {
                     throw EmptyFieldException("Todos os campos devem ser preenchidos.")
                 }
 
-                accountController.createAccount(emailSignUp, passwordSignUp, confirmPassword)
                 startActivity(Intent(this, ProfileCreateActivity::class.java))
             } catch (e: EmptyFieldException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()

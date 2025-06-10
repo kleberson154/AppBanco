@@ -15,7 +15,11 @@ class AccountController(private val context: Context) {
         return super.toString()
     }
 
-    fun createAccount(email: String, password: String, confirmPassword: String) {
+    fun createAccount(phone: String) {
+        Log.d("MVC_controller", "Conta criada com sucesso")
+    }
+
+    fun saveAccount(email: String, password: String, confirmPassword: String) {
         if (confirmPassword(password, confirmPassword)) {
             Log.d("MVC_controller", "Senha confirmada")
         } else {
