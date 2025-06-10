@@ -1,6 +1,7 @@
 package com.kleberson.appbanco.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.widget.Button
 import android.widget.TextView
@@ -23,8 +24,7 @@ class SignUpActivity: AppCompatActivity() {
         val editTextEmail = findViewById<TextView>(R.id.editTextEmailSignUp)
         val editTextPassword = findViewById<TextView>(R.id.editTextPasswordSignUp)
         val editTextConfirmPassword = findViewById<TextView>(R.id.editTextConfirmPassword)
-
-        val accountController = AccountController(this)
+        val sharedPref = this.getSharedPreferences("save_profile", Context.MODE_PRIVATE)
 
         buttonSignUp.setOnClickListener{
             try {
@@ -36,6 +36,11 @@ class SignUpActivity: AppCompatActivity() {
                     throw EmptyFieldException("Todos os campos devem ser preenchidos.")
                 }
 
+                sharedPref.edit().apply {
+                    putString("email", emailSignUp)
+                    putString("password", passwordSignUp)
+                    apply()
+                }
                 startActivity(Intent(this, ProfileCreateActivity::class.java))
             } catch (e: EmptyFieldException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()

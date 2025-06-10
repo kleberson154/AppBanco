@@ -29,7 +29,7 @@ class ProfileCreateActivity: AppCompatActivity() {
                     throw EmptyFieldException("Todos os campos devem ser preenchidos.")
                 }
 
-                accountController.setName(firstNameText, lastNameText)
+                getSharedPreferences("save_profile", MODE_PRIVATE).edit().putString("firstName", firstNameText).putString("lastName", lastNameText).apply()
                 startActivity(Intent(this, PhoneCreateActivity::class.java))
             }catch (e: EmptyFieldException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
