@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
 import com.kleberson.appbanco.controller.AccountController
 import com.kleberson.appbanco.exception.EmptyFieldException
+import com.kleberson.appbanco.exception.FailedLoginException
 
 class PhoneCreateActivity: AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -36,10 +37,15 @@ class PhoneCreateActivity: AppCompatActivity() {
                     sharedPref.getString("firstName", "") ?: "",
                     sharedPref.getString("lastName", "") ?: "",
                     phone)
-                accountController.login(sharedPref.getString("email", "") ?: "",
-                        sharedPref.getString("password", "") ?: "")
-                startActivity(Intent(this, MainActivity::class.java))
+                if (accountController.login(sharedPref.getString("email", "") ?: "",
+                        sharedPref.getString("password", "") ?: "")){
+                    startActivity(Intent(this, MainActivity::class.java))
+                } else {
+                    throw FailedLoginException()
+                }
             }catch (e: EmptyFieldException) {
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+            }catch (e: FailedLoginException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }
         }

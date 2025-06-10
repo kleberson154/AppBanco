@@ -1,8 +1,10 @@
 package com.kleberson.appbanco.database
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.kleberson.appbanco.model.Account
 
 class Database(context: Context) : SQLiteOpenHelper(
     context,
@@ -17,7 +19,9 @@ class Database(context: Context) : SQLiteOpenHelper(
                 "password TEXT NOT NULL, " +
                 "firstName TEXT NOT NULL, " +
                 "lastName TEXT NOT NULL, " +
-                "phone TEXT NOT NULL" +
+                "phone TEXT NOT NULL, " +
+                "balance REAL DEFAULT 0.0, " +
+                "limitCredit REAL DEFAULT 1000.0" +
                 ");"
         db?.execSQL(createTableAccount)
     }
@@ -34,8 +38,30 @@ class Database(context: Context) : SQLiteOpenHelper(
         phone: String
     ) {
         val db = writableDatabase
-        val sql = "INSERT INTO person (email, password, firstName, lastName, phone) VALUES (?, ?, ?, ?, ?)"
+        val sql = "INSERT INTO account (email, password, firstName, lastName, phone) VALUES (?, ?, ?, ?, ?)"
         db.execSQL(sql, arrayOf(email, password, firstName, lastName, phone))
-        db.close()
+    }
+
+    @SuppressLint("Range")
+    fun getAccountByEmail(
+        email: String
+    ): Account? {
+        val db = readableDatabase
+        val sql = "SELECT * FROM account WHERE email = ?"
+        val cursor = db.rawQuery(sql, arrayOf(email))
+
+        return if (cursor.moveToFirst()) {
+            val password = cursor.getString(cursor.getColumnIndex("password"))
+            val firstName = cursor.getString(cursor.getColumnIndex("firstName"))
+            val lastName = cursor.getString(cursor.getColumnIndex("lastName"))
+            val phone = cursor.getString(cursor.getColumnIndex("phone"))
+            val balance = cursor.getDouble(cursor.getColumnIndex("balance"))
+            val limitCredit = cursor.getDouble(cursor.getColumnIndex("limitCredit"))
+            cursor.close()
+            Account(email, password, firstName, lastName, phone, balance, limitCredit)
+        } else {
+            cursor.close()
+            null
+        }
     }
 }
