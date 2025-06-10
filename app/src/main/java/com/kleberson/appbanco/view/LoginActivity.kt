@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
+import com.kleberson.appbanco.controller.AccountController
 import com.kleberson.appbanco.exception.EmptyFieldException
 
 class LoginActivity: AppCompatActivity() {
@@ -23,6 +24,16 @@ class LoginActivity: AppCompatActivity() {
         val linkSignUp = findViewById<TextView>(R.id.textViewLinkSignUp)
         val buttonLogin = findViewById<Button>(R.id.buttonLogin)
 
+        val accountController = AccountController(this)
+
+        getSharedPreferences("save_profile", MODE_PRIVATE).getString("email", "")?.let {
+            emailLogin.setText(it)
+        }
+
+        getSharedPreferences("save_profile", MODE_PRIVATE).getString("password", "")?.let {
+            passwordLogin.setText(it)
+        }
+
         buttonLogin.setOnClickListener{
             try{
                 val email = emailLogin.text.toString()
@@ -30,6 +41,12 @@ class LoginActivity: AppCompatActivity() {
 
                 if (email.isBlank() || password.isBlank()) {
                     throw EmptyFieldException("Todos os campos devem ser preenchidos.")
+                }
+
+                if(accountController.login(email, password)) {
+                    startActivity(Intent(this, MainActivity::class.java))
+                } else {
+                    throw Exception("Falha ao fazer login. Verifique suas credenciais e tente novamente.")
                 }
             }catch (e: EmptyFieldException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
