@@ -2,11 +2,14 @@ package com.kleberson.appbanco.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
 import com.kleberson.appbanco.controller.AccountController
+import com.kleberson.appbanco.exception.EmptyFieldException
 
 class SignUpActivity: AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -16,26 +19,32 @@ class SignUpActivity: AppCompatActivity() {
         setContentView(R.layout.signup_activity)
 
         val linkLogin = findViewById<TextView>(R.id.textViewLinkLogin)
-        val buttonSignUp = findViewById<TextView>(R.id.buttonSignUp)
-        val editTextEmail = findViewById<TextView>(R.id.editTextEmailAddress)
-        val editTextPassword = findViewById<TextView>(R.id.editTextPassword)
+        val buttonSignUp = findViewById<Button>(R.id.buttonSignUp)
+        val editTextEmail = findViewById<TextView>(R.id.editTextEmailSignUp)
+        val editTextPassword = findViewById<TextView>(R.id.editTextPasswordSignUp)
         val editTextConfirmPassword = findViewById<TextView>(R.id.editTextConfirmPassword)
 
         val accountController = AccountController(this)
 
-        buttonSignUp.setOnClickListener({
-            accountController.createAccount(
-                editTextEmail.text.toString(),
-                editTextPassword.text.toString(),
-                editTextConfirmPassword.text.toString(),
-            )
-            val intent = Intent(this, ProfileCreateActivity::class.java)
-            startActivity(intent)
-        })
+        buttonSignUp.setOnClickListener{
+            try {
+                val emailSignUp = editTextEmail.text.toString()
+                val passwordSignUp = editTextPassword.text.toString()
+                val confirmPassword = editTextConfirmPassword.text.toString()
+
+                if (emailSignUp.isBlank() || passwordSignUp.isBlank() || confirmPassword.isBlank()) {
+                    throw EmptyFieldException("Todos os campos devem ser preenchidos.")
+                }
+
+                accountController.createAccount(emailSignUp, passwordSignUp, confirmPassword)
+                startActivity(Intent(this, ProfileCreateActivity::class.java))
+            } catch (e: EmptyFieldException) {
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+            }
+        }
 
         linkLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }
