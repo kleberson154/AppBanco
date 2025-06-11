@@ -19,16 +19,4 @@ class AccountController(context: Context) {
         db.insertAccount(account.email, account.password, account.firstName, account.lastName, account.phone)
         Log.d("MVC_controller", "Conta criada com sucesso - Dados: ${account.toString()}")
     }
-
-    fun login(email: String, password: String): Boolean {
-        val accountFromDb = db.getAccountByEmail(email)
-        return if (accountFromDb != null && accountFromDb.password == password) {
-            account = accountFromDb
-            Log.d("MVC_controller", "Login bem-sucedido: ${account.toString()}")
-            true
-        } else {
-            Log.d("MVC_controller", "Falha no login: email ou senha incorretos")
-            false
-        }
-    }
 }
