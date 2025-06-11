@@ -37,7 +37,7 @@
         android:layout_width="254dp"
         android:layout_height="48dp"
         android:layout_marginTop="56dp"
-        android:text="Please, enter the amount of money transfer in below field."
+        android:text="Please enter the amount of money to deposit in the field below."
         android:textColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.216"
