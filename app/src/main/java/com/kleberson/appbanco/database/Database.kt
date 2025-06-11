@@ -66,4 +66,10 @@ class Database(context: Context) : SQLiteOpenHelper(
         val sql = "UPDATE account SET balance = balance + ? WHERE email = ?"
         db.execSQL(sql, arrayOf(value, email))
     }
+
+    fun sake(email: String, value: Double) {
+        val db = writableDatabase
+        val sql = "UPDATE account SET balance = balance - ? WHERE email = ?"
+        db.execSQL(sql, arrayOf(value, email))
+    }
 }
