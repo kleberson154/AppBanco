@@ -1,6 +1,7 @@
 package com.kleberson.appbanco.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -16,17 +17,17 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         val db = Database(this)
-        val email = getSharedPreferences("save_profile", MODE_PRIVATE).getString("email", "") ?: ""
+        val formatBalance = FormatBalance()
+        val email = intent.getStringExtra("email") ?: ""
+        val password = intent.getStringExtra("password") ?: ""
 
         val nameTextView = findViewById<TextView>(R.id.textViewShowNameMain)
         val balanceTextView = findViewById<TextView>(R.id.textViewBalance)
-        val account = db.getAccountByEmail(email)
-        val formatBalance = FormatBalance(account?.balance ?: 0.0)
-        if (account != null) {
-            nameTextView.text = account.firstName
+        val profile = db.login(email, password)
+
+        if (profile != null) {
+            nameTextView.text = profile.firstName
+            balanceTextView.text = formatBalance.format(profile.balance)
         }
-        balanceTextView.text = account?.let {
-            formatBalance.format()
-        } ?: "0,00"
     }
 }
