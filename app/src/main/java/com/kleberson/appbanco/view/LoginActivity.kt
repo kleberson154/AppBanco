@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
 import com.kleberson.appbanco.controller.AccountController
+import com.kleberson.appbanco.database.Database
 import com.kleberson.appbanco.exception.EmptyFieldException
 import com.kleberson.appbanco.exception.FailedLoginException
 
@@ -25,6 +26,7 @@ class LoginActivity: AppCompatActivity() {
         val linkSignUp = findViewById<TextView>(R.id.textViewLinkSignUp)
         val buttonLogin = findViewById<Button>(R.id.buttonLogin)
 
+        val db = Database(this)
         val accountController = AccountController(this)
 
         getSharedPreferences("save_profile", MODE_PRIVATE).getString("email", "")?.let {
@@ -44,8 +46,11 @@ class LoginActivity: AppCompatActivity() {
                     throw EmptyFieldException("Todos os campos devem ser preenchidos.")
                 }
 
-                if(accountController.login(email, password)) {
-                    startActivity(Intent(this, MainActivity::class.java))
+                val profile = db.login(email, password)
+                if(profile != null) {
+                    val sharedPreferences = getSharedPreferences("save_profile", MODE_PRIVATE)
+                    sharedPreferences.edit().putString("email", profile.email).putString("password", profile.password).apply()
+                    startActivity(Intent(this, MainActivity::class.java).putExtra("email", email).putExtra("password", password))
                 } else {
                     throw FailedLoginException()
                 }
