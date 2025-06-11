@@ -3,6 +3,7 @@ package com.kleberson.appbanco.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -23,11 +24,13 @@ class MainActivity : AppCompatActivity() {
 
         val nameTextView = findViewById<TextView>(R.id.textViewShowNameMain)
         val balanceTextView = findViewById<TextView>(R.id.textViewBalance)
+        val balanceCreditTextView = findViewById<TextView>(R.id.textViewBalanceCredit)
         val profile = db.login(email, password)
 
         if (profile != null) {
             nameTextView.text = profile.firstName
             balanceTextView.text = formatBalance.format(profile.balance)
+            balanceCreditTextView.text = formatBalance.format(profile.limitCredit)
         }
     }
 }
