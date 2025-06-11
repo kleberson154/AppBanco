@@ -34,7 +34,7 @@
         android:layout_width="183dp"
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
-        android:text="Money Transfered Successfully"
+        android:text="Money deposited successfully"
         android:textAlignment="center"
         android:textColor="@color/primary"
         android:textSize="16sp"
