@@ -43,15 +43,11 @@ class Database(context: Context) : SQLiteOpenHelper(
     }
 
     @SuppressLint("Range")
-    fun getAccountByEmail(
-        email: String
-    ): Account? {
+    fun login(email: String, password: String): Account? {
         val db = readableDatabase
-        val sql = "SELECT * FROM account WHERE email = ?"
-        val cursor = db.rawQuery(sql, arrayOf(email))
-
+        val sql = "SELECT * FROM account WHERE email = ? AND password = ?"
+        val cursor = db.rawQuery(sql, arrayOf(email, password))
         return if (cursor.moveToFirst()) {
-            val password = cursor.getString(cursor.getColumnIndex("password"))
             val firstName = cursor.getString(cursor.getColumnIndex("firstName"))
             val lastName = cursor.getString(cursor.getColumnIndex("lastName"))
             val phone = cursor.getString(cursor.getColumnIndex("phone"))

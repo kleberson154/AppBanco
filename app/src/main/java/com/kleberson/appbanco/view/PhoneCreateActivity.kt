@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
 import com.kleberson.appbanco.controller.AccountController
+import com.kleberson.appbanco.database.Database
 import com.kleberson.appbanco.exception.EmptyFieldException
 import com.kleberson.appbanco.exception.FailedLoginException
 
@@ -21,6 +22,7 @@ class PhoneCreateActivity: AppCompatActivity() {
         val buttonPhone = findViewById<Button>(R.id.buttonPhone)
 
         val accountController = AccountController(this)
+        val db = Database(this)
 
         buttonPhone.setOnClickListener {
             try{
@@ -37,9 +39,9 @@ class PhoneCreateActivity: AppCompatActivity() {
                     sharedPref.getString("firstName", "") ?: "",
                     sharedPref.getString("lastName", "") ?: "",
                     phone)
-                if (accountController.login(sharedPref.getString("email", "") ?: "",
-                        sharedPref.getString("password", "") ?: "")){
-                    startActivity(Intent(this, MainActivity::class.java))
+                if (db.login(sharedPref.getString("email", "") ?: "",
+                        sharedPref.getString("password", "") ?: "") != null) {
+                    startActivity(Intent(this, MainActivity::class.java).putExtra("email", sharedPref.getString("email", "")).putExtra("password", sharedPref.getString("password", "")))
                 } else {
                     throw FailedLoginException()
                 }
