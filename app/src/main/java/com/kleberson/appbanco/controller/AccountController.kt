@@ -19,4 +19,9 @@ class AccountController(context: Context) {
         db.insertAccount(account.email, account.password, account.firstName, account.lastName, account.phone)
         Log.d("MVC_controller", "Conta criada com sucesso - Dados: ${account.toString()}")
     }
+
+    fun deposit(email: String, value: Double) {
+        db.deposit(email, value)
+        Log.d("MVC_controller", "Depósito realizado com sucesso - Valor: $value")
+    }
 }

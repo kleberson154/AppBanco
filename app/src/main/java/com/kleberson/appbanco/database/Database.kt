@@ -60,4 +60,10 @@ class Database(context: Context) : SQLiteOpenHelper(
             null
         }
     }
+
+    fun deposit(email: String, value: Double) {
+        val db = writableDatabase
+        val sql = "UPDATE account SET balance = balance + ? WHERE email = ?"
+        db.execSQL(sql, arrayOf(value, email))
+    }
 }

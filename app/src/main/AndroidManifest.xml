@@ -27,6 +27,8 @@
         <activity android:name=".view.LoginActivity" android:exported="true" />
         <activity android:name=".view.ProfileCreateActivity" android:exported="true" />
         <activity android:name=".view.PhoneCreateActivity" android:exported="true" />
+        <activity android:name=".view.DepositActivity" android:exported="true" />
+        <activity android:name=".view.SuccessDepositActivity" android:exported="true" />
 
     </application>
 
