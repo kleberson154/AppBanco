@@ -67,9 +67,18 @@ class Database(context: Context) : SQLiteOpenHelper(
         db.execSQL(sql, arrayOf(value, email))
     }
 
+    @SuppressLint("Range", "Recycle")
     fun sake(email: String, value: Double) {
         val db = writableDatabase
-        val sql = "UPDATE account SET balance = balance - ? WHERE email = ?"
+        var sql = "SELECT * FROM account WHERE email = ?"
+        val cursor = db.rawQuery(sql, arrayOf(email))
+        val balance = cursor.getDouble(cursor.getColumnIndex("balance"))
+        val limitCredit = cursor.getDouble(cursor.getColumnIndex("limitCredit"))
+        sql = if (value > balance){
+            "UPDATE account SET balance = 0.0, limitCredit = limitCredit - ? WHERE email = ?"
+        } else {
+            "UPDATE account SET balance = balance - ? WHERE email = ?"
+        }
         db.execSQL(sql, arrayOf(value, email))
     }
 }
