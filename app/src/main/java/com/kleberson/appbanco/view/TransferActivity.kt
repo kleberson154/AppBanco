@@ -43,7 +43,7 @@ class TransferActivity: AppCompatActivity() {
                     if ((profile.balance + profile.limitCredit) >= inputSake.text.toString().toDouble()) {
                         if (db.searchUser(inputEmail.text.toString())) {
                             accountController.transfer(email, inputSake.text.toString().toDouble(), inputEmail.text.toString())
-                            val intent = Intent(this, SuccessTransferActivity::class.java).apply {
+                            val intent = Intent(this, SuccessActivity::class.java).apply {
                                 putExtra("email", email)
                                 putExtra("password", password)
                                 putExtra("param", param)}
