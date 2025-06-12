@@ -28,7 +28,7 @@ class SakeActivity: AppCompatActivity() {
         val buttonNextSake = findViewById<android.widget.Button>(R.id.buttonNextSake)
         val inputSake = findViewById<EditText>(R.id.editTextInputSake)
         val accountController = AccountController(this)
-        val profile = db.login(email, password)
+        val profile = accountController.login(email, password)
 
         if (profile != null) {
             balanceTextView.text = formatBalance.format(profile.balance)
@@ -38,8 +38,12 @@ class SakeActivity: AppCompatActivity() {
         buttonNextSake.setOnClickListener {
             if (profile != null) {
                 try {
-                    if (profile.balance + profile.limitCredit > inputSake.text.toString().toDouble()) {
+                    if ((profile.balance + profile.limitCredit) >= inputSake.text.toString().toDouble()) {
                         accountController.sake(email, inputSake.text.toString().toDouble())
+                        val intent = Intent(this, SuccessDepositActivity::class.java).apply {
+                            putExtra("email", email)
+                            putExtra("password", password)}
+                        startActivity(intent)
                     }else{
                         throw InsufficientBalanceException()
                     }
@@ -47,11 +51,6 @@ class SakeActivity: AppCompatActivity() {
                     Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 }
             }
-
-            startActivity(Intent(this, SuccessDepositActivity::class.java).apply {
-                putExtra("email", email)
-                putExtra("password", password)
-            })
         }
     }
 }

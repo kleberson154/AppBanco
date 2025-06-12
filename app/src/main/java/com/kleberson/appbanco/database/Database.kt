@@ -75,8 +75,9 @@ class Database(context: Context) : SQLiteOpenHelper(
         if(cursor.moveToFirst()){
             val balance = cursor.getDouble(cursor.getColumnIndex("balance"))
             val limitCredit = cursor.getDouble(cursor.getColumnIndex("limitCredit"))
+
             sql = if (value > balance){
-                "UPDATE account SET balance = 0.0, limitCredit = limitCredit - ? WHERE email = ?"
+                "UPDATE account SET limitCredit = limitCredit - (? - balance), balance = 0.0 WHERE email = ?"
             } else {
                 "UPDATE account SET balance = balance - ? WHERE email = ?"
             }
