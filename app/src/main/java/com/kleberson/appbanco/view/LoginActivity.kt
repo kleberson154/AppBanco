@@ -38,7 +38,7 @@ class LoginActivity: AppCompatActivity() {
                 val password = passwordLogin.text.toString()
 
                 if (email.isBlank() || password.isBlank()) {
-                    throw EmptyFieldException("Todos os campos devem ser preenchidos.")
+                    throw EmptyFieldException()
                 }
 
                 val profile = accountController.login(email, password)
