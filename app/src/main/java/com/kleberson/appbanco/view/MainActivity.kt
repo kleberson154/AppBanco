@@ -1,24 +1,21 @@
 package com.kleberson.appbanco.view
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
-import com.kleberson.appbanco.database.Database
+import com.kleberson.appbanco.controller.AccountController
 import com.kleberson.appbanco.util.FormatBalance
 
 class MainActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        val db = Database(this)
+        val accountController = AccountController(this)
         val formatBalance = FormatBalance()
         val email = intent.getStringExtra("email") ?: ""
         val password = intent.getStringExtra("password") ?: ""
@@ -29,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         val buttonDeposit = findViewById<Button>(R.id.buttonDeposit)
         val buttonSake = findViewById<Button>(R.id.buttonSake)
         val buttonTransfer = findViewById<Button>(R.id.buttonTransfer)
-        val profile = db.login(email, password)
+        val profile = accountController.login(email, password)
 
         if (profile != null) {
             nameTextView.text = profile.firstName
@@ -38,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonDeposit.setOnClickListener {
-            Log.d("MainActivity", "Deposit button clicked")
             val intent = Intent(this, DepositActivity::class.java)
             intent.putExtra("email", email)
             intent.putExtra("password", password)
@@ -47,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonSake.setOnClickListener {
-            Log.d("MainActivity", "Sake button clicked")
             val intent = Intent(this, SakeActivity::class.java)
             intent.putExtra("email", email)
             intent.putExtra("password", password)
@@ -56,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonTransfer.setOnClickListener {
-            Log.d("MainActivity", "Transfer button clicked")
             val intent = Intent(this, TransferActivity::class.java)
             intent.putExtra("email", email)
             intent.putExtra("password", password)

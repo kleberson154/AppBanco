@@ -1,6 +1,5 @@
 package com.kleberson.appbanco.view
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.widget.Button
 import android.widget.EditText
@@ -10,12 +9,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
 import com.kleberson.appbanco.controller.AccountController
-import com.kleberson.appbanco.database.Database
 import com.kleberson.appbanco.exception.EmptyFieldException
 import com.kleberson.appbanco.exception.FailedLoginException
 
 class LoginActivity: AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,8 +22,6 @@ class LoginActivity: AppCompatActivity() {
         val passwordLogin = findViewById<EditText>(R.id.editTextPasswordLogin)
         val linkSignUp = findViewById<TextView>(R.id.textViewLinkSignUp)
         val buttonLogin = findViewById<Button>(R.id.buttonLogin)
-
-        val db = Database(this)
         val accountController = AccountController(this)
 
         getSharedPreferences("save_profile", MODE_PRIVATE).getString("email", "")?.let {
@@ -43,7 +38,7 @@ class LoginActivity: AppCompatActivity() {
                 val password = passwordLogin.text.toString()
 
                 if (email.isBlank() || password.isBlank()) {
-                    throw EmptyFieldException("Todos os campos devem ser preenchidos.")
+                    throw EmptyFieldException()
                 }
 
                 val profile = accountController.login(email, password)
@@ -65,5 +60,4 @@ class LoginActivity: AppCompatActivity() {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
     }
-
 }

@@ -18,10 +18,10 @@ class SakeActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.sake_activity)
-        val db = Database(this)
         val formatBalance = FormatBalance()
         val email = intent.getStringExtra("email") ?: ""
         val password = intent.getStringExtra("password") ?: ""
+        val param = intent.getStringExtra("param")
 
         val balanceTextView = findViewById<TextView>(R.id.textViewBalanceSake)
         val balanceCreditTextView = findViewById<TextView>(R.id.textViewBalanceCreditSake)
@@ -40,9 +40,10 @@ class SakeActivity: AppCompatActivity() {
                 try {
                     if ((profile.balance + profile.limitCredit) >= inputSake.text.toString().toDouble()) {
                         accountController.sake(email, inputSake.text.toString().toDouble())
-                        val intent = Intent(this, SuccessDepositActivity::class.java).apply {
+                        val intent = Intent(this, SuccessActivity::class.java).apply {
                             putExtra("email", email)
-                            putExtra("password", password)}
+                            putExtra("password", password)
+                            putExtra("param", param)}
                         startActivity(intent)
                     }else{
                         throw InsufficientBalanceException()

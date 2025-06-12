@@ -1,6 +1,5 @@
 package com.kleberson.appbanco.view
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.widget.Button
@@ -9,11 +8,9 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
-import com.kleberson.appbanco.controller.AccountController
 import com.kleberson.appbanco.exception.EmptyFieldException
 
 class SignUpActivity: AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,7 +30,7 @@ class SignUpActivity: AppCompatActivity() {
                 val confirmPassword = editTextConfirmPassword.text.toString()
 
                 if (emailSignUp.isBlank() || passwordSignUp.isBlank() || confirmPassword.isBlank()) {
-                    throw EmptyFieldException("Todos os campos devem ser preenchidos.")
+                    throw EmptyFieldException()
                 }
 
                 sharedPref.edit().apply {

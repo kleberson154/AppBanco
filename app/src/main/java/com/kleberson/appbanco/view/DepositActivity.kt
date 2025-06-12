@@ -17,6 +17,7 @@ class DepositActivity: AppCompatActivity() {
         setContentView(R.layout.deposit_activity)
         val email = intent.getStringExtra("email") ?: ""
         val password = intent.getStringExtra("password") ?: ""
+        val param = intent.getStringExtra("param")
 
         val buttonNextDeposit = findViewById<Button>(R.id.buttonNextDeposit)
         val inputDeposit = findViewById<EditText>(R.id.editTextInputDeposit)
@@ -24,10 +25,11 @@ class DepositActivity: AppCompatActivity() {
 
         buttonNextDeposit.setOnClickListener {
             accountController.deposit(email, inputDeposit.text.toString().toDoubleOrNull() ?: 0.0)
-            startActivity(Intent(this, SuccessDepositActivity::class.java).apply {
+            val intent = Intent(this, SuccessActivity::class.java).apply {
                 putExtra("email", email)
                 putExtra("password", password)
-            })
+                putExtra("param", param)}
+            startActivity(intent)
         }
     }
 }

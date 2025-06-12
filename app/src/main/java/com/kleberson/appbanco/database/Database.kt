@@ -31,15 +31,11 @@ class Database(context: Context) : SQLiteOpenHelper(
     }
 
     fun insertAccount(
-        email: String,
-        password: String,
-        firstName: String,
-        lastName: String,
-        phone: String
+        accountUser: Account
     ) {
         val db = writableDatabase
         val sql = "INSERT INTO account (email, password, firstName, lastName, phone) VALUES (?, ?, ?, ?, ?)"
-        db.execSQL(sql, arrayOf(email, password, firstName, lastName, phone))
+        db.execSQL(sql, arrayOf(accountUser.email, accountUser.password, accountUser.firstName, accountUser.lastName, accountUser.phone))
     }
 
     fun searchUser(email: String): Boolean {
