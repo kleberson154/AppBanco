@@ -44,5 +44,13 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("password", password)
             startActivity(intent)
         }
+
+        buttonSake.setOnClickListener {
+            Log.d("MainActivity", "Sake button clicked")
+            val intent = Intent(this, SakeActivity::class.java)
+            intent.putExtra("email", email)
+            intent.putExtra("password", password)
+            startActivity(intent)
+        }
     }
 }

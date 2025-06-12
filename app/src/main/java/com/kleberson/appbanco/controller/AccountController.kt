@@ -24,4 +24,9 @@ class AccountController(context: Context) {
         db.deposit(email, value)
         Log.d("MVC_controller", "Depósito realizado com sucesso - Valor: $value")
     }
+
+    fun sake(email: String, value: Double) {
+        db.sake(email, value)
+        Log.d("MVC_controller", "Sake realizado com sucesso - Valor: $value")
+    }
 }
