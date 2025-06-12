@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         val formatBalance = FormatBalance()
         val email = intent.getStringExtra("email") ?: ""
         val password = intent.getStringExtra("password") ?: ""
+        val intent = Intent(this, DepositActivity::class.java)
+        intent.putExtra("email", email)
+        intent.putExtra("password", password)
 
         val nameTextView = findViewById<TextView>(R.id.textViewShowNameMain)
         val balanceTextView = findViewById<TextView>(R.id.textViewBalance)
@@ -39,17 +42,16 @@ class MainActivity : AppCompatActivity() {
 
         buttonDeposit.setOnClickListener {
             Log.d("MainActivity", "Deposit button clicked")
-            val intent = Intent(this, DepositActivity::class.java)
-            intent.putExtra("email", email)
-            intent.putExtra("password", password)
             startActivity(intent)
         }
 
         buttonSake.setOnClickListener {
             Log.d("MainActivity", "Sake button clicked")
-            val intent = Intent(this, SakeActivity::class.java)
-            intent.putExtra("email", email)
-            intent.putExtra("password", password)
+            startActivity(intent)
+        }
+
+        buttonTransfer.setOnClickListener {
+            Log.d("MainActivity", "Transfer button clicked")
             startActivity(intent)
         }
     }
