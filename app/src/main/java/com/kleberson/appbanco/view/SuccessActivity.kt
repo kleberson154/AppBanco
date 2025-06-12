@@ -9,19 +9,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
 
-class SuccessTransferActivity: AppCompatActivity() {
+class SuccessActivity: AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.success_transfer_activity)
+        setContentView(R.layout.success_activity)
         val email = intent.getStringExtra("email") ?: ""
         val password = intent.getStringExtra("password") ?: ""
         val param = intent.getStringExtra("param")
 
         val textViewParam = findViewById<TextView>(R.id.textViewParam)
         textViewParam.text = param
-        val buttonSuccess = findViewById<Button>(R.id.buttonSuccessTransfer)
+        val buttonSuccess = findViewById<Button>(R.id.buttonSuccess)
 
         buttonSuccess.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java).apply {

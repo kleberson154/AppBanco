@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/success" />
 
     <Button
-        android:id="@+id/buttonSuccessTransfer"
+        android:id="@+id/buttonSuccess"
         android:layout_width="128dp"
         android:layout_height="62dp"
         android:layout_marginTop="64dp"
