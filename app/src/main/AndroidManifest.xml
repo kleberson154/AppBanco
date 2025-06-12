@@ -28,11 +28,9 @@
         <activity android:name=".view.ProfileCreateActivity" android:exported="true" />
         <activity android:name=".view.PhoneCreateActivity" android:exported="true" />
         <activity android:name=".view.DepositActivity" android:exported="true" />
-        <activity android:name=".view.SuccessDepositActivity" android:exported="true" />
         <activity android:name=".view.SakeActivity" android:exported="true" />
-        <activity android:name=".view.SuccessSakeActivity" android:exported="true" />
         <activity android:name=".view.TransferActivity" android:exported="true" />
-        <activity android:name=".view.SuccessTransferActivity" android:exported="true" />
+        <activity android:name=".view.SuccessActivity" android:exported="true" />
 
     </application>
 
