@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
 import com.kleberson.appbanco.controller.AccountController
-import com.kleberson.appbanco.database.Database
 import com.kleberson.appbanco.exception.EmptyFieldException
 import com.kleberson.appbanco.exception.FailedLoginException
 
@@ -30,7 +29,7 @@ class PhoneCreateActivity: AppCompatActivity() {
                 val phone = editTextPhone.text.toString()
 
                 if (phone.isBlank()) {
-                    throw EmptyFieldException("Todos os campos devem ser preenchidos.")
+                    throw EmptyFieldException()
                 }
 
                 accountController.createAccount(email, password, firstName, lastName, phone)
