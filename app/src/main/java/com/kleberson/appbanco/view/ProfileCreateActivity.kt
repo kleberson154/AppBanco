@@ -6,7 +6,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kleberson.appbanco.R
-import com.kleberson.appbanco.controller.AccountController
 import com.kleberson.appbanco.exception.EmptyFieldException
 
 class ProfileCreateActivity: AppCompatActivity() {
@@ -20,15 +19,13 @@ class ProfileCreateActivity: AppCompatActivity() {
         val lastName = findViewById<EditText>(R.id.editTextLastName)
         val buttonSet = findViewById<Button>(R.id.buttonSet)
 
-        val accountController = AccountController(this)
-
         buttonSet.setOnClickListener {
             try{
                 val firstNameText = firstName.text.toString()
                 val lastNameText = lastName.text.toString()
 
                 if (firstNameText.isBlank() || lastNameText.isBlank()) {
-                    throw EmptyFieldException("Todos os campos devem ser preenchidos.")
+                    throw EmptyFieldException()
                 }
                 val intent = Intent(this, PhoneCreateActivity::class.java).putExtra("email", email)
                     .putExtra("password", password)
