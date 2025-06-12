@@ -30,7 +30,7 @@ class SignUpActivity: AppCompatActivity() {
                 val confirmPassword = editTextConfirmPassword.text.toString()
 
                 if (emailSignUp.isBlank() || passwordSignUp.isBlank() || confirmPassword.isBlank()) {
-                    throw EmptyFieldException("Todos os campos devem ser preenchidos.")
+                    throw EmptyFieldException()
                 }
 
                 sharedPref.edit().apply {
