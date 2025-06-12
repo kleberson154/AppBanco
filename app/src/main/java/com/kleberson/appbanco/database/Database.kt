@@ -87,4 +87,9 @@ class Database(context: Context) : SQLiteOpenHelper(
             return
         }
     }
+
+    fun transfer(email: String, value: Double, inputEmail: String) {
+        sake(email, value)
+        deposit(inputEmail, value)
+    }
 }
