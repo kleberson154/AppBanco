@@ -46,7 +46,7 @@ class LoginActivity: AppCompatActivity() {
                     throw EmptyFieldException("Todos os campos devem ser preenchidos.")
                 }
 
-                val profile = db.login(email, password)
+                val profile = accountController.login(email, password)
                 if(profile != null) {
                     val sharedPreferences = getSharedPreferences("save_profile", MODE_PRIVATE)
                     sharedPreferences.edit().putString("email", profile.email).putString("password", profile.password).apply()
