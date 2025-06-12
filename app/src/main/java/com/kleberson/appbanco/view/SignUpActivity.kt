@@ -41,7 +41,8 @@ class SignUpActivity: AppCompatActivity() {
                     putString("password", passwordSignUp)
                     apply()
                 }
-                startActivity(Intent(this, ProfileCreateActivity::class.java))
+                val intent = Intent(this, ProfileCreateActivity::class.java).putExtra("email", emailSignUp).putExtra("password", passwordSignUp)
+                startActivity(intent)
             } catch (e: EmptyFieldException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }

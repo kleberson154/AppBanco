@@ -20,6 +20,17 @@ class AccountController(context: Context) {
         Log.d("MVC_controller", "Conta criada com sucesso - Dados: ${account.toString()}")
     }
 
+    fun login(email: String, password: String): Account? {
+        val profile = db.login(email, password)
+        if (profile != null) {
+            Log.d("MVC_controller", "Login realizado com sucesso - Email: $email")
+            return profile
+        } else {
+            Log.d("MVC_controller", "Falha no login - Email: $email")
+            return null
+        }
+    }
+
     fun deposit(email: String, value: Double) {
         db.deposit(email, value)
         Log.d("MVC_controller", "Depósito realizado com sucesso - Valor: $value")

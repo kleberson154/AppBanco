@@ -13,6 +13,8 @@ class ProfileCreateActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: android.os.Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.profile_create_activity)
+        val email = intent.getStringExtra("email") ?: ""
+        val password = intent.getStringExtra("password") ?: ""
 
         val firstName = findViewById<EditText>(R.id.editTextFirstName)
         val lastName = findViewById<EditText>(R.id.editTextLastName)
@@ -28,9 +30,11 @@ class ProfileCreateActivity: AppCompatActivity() {
                 if (firstNameText.isBlank() || lastNameText.isBlank()) {
                     throw EmptyFieldException("Todos os campos devem ser preenchidos.")
                 }
-
-                getSharedPreferences("save_profile", MODE_PRIVATE).edit().putString("firstName", firstNameText).putString("lastName", lastNameText).apply()
-                startActivity(Intent(this, PhoneCreateActivity::class.java))
+                val intent = Intent(this, PhoneCreateActivity::class.java).putExtra("email", email)
+                    .putExtra("password", password)
+                    .putExtra("firstName", firstNameText)
+                    .putExtra("lastName", lastNameText)
+                startActivity(intent)
             }catch (e: EmptyFieldException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }
