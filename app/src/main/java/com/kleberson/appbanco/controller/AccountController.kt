@@ -40,4 +40,9 @@ class AccountController(context: Context) {
         db.sake(email, value)
         Log.d("MVC_controller", "Sake realizado com sucesso - Valor: $value")
     }
+
+    fun transfer(email: String, value: Double, inputEmail: String) {
+        db.transfer(email, value, inputEmail)
+        Log.d("MVC_controller", "Transferência realizada com sucesso - Valor: $value para $inputEmail")
+    }
 }

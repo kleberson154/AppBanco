@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, DepositActivity::class.java)
             intent.putExtra("email", email)
             intent.putExtra("password", password)
+            intent.putExtra("param", "Money deposited successfully")
             startActivity(intent)
         }
 
@@ -50,6 +51,16 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SakeActivity::class.java)
             intent.putExtra("email", email)
             intent.putExtra("password", password)
+            intent.putExtra("param", "Money withdrawn successfully")
+            startActivity(intent)
+        }
+
+        buttonTransfer.setOnClickListener {
+            Log.d("MainActivity", "Transfer button clicked")
+            val intent = Intent(this, TransferActivity::class.java)
+            intent.putExtra("email", email)
+            intent.putExtra("password", password)
+            intent.putExtra("param", "Money Transfered Successfully")
             startActivity(intent)
         }
     }

@@ -42,6 +42,15 @@ class Database(context: Context) : SQLiteOpenHelper(
         db.execSQL(sql, arrayOf(email, password, firstName, lastName, phone))
     }
 
+    fun searchUser(email: String): Boolean {
+        val db = readableDatabase
+        val sql = "SELECT * FROM account WHERE email = ?"
+        val cursor = db.rawQuery(sql, arrayOf(email))
+        val exists = cursor.moveToFirst()
+        cursor.close()
+        return exists
+    }
+
     @SuppressLint("Range")
     fun login(email: String, password: String): Account? {
         val db = readableDatabase
@@ -86,5 +95,10 @@ class Database(context: Context) : SQLiteOpenHelper(
             cursor.close()
             return
         }
+    }
+
+    fun transfer(email: String, value: Double, inputEmail: String) {
+        sake(email, value)
+        deposit(inputEmail, value)
     }
 }
