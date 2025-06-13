@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val buttonDeposit = findViewById<Button>(R.id.buttonDeposit)
         val buttonSake = findViewById<Button>(R.id.buttonSake)
         val buttonTransfer = findViewById<Button>(R.id.buttonTransfer)
+        val buttonExit = findViewById<Button>(R.id.buttonExit)
         val profile = accountController.login(email, password)
 
         if (profile != null) {
@@ -56,6 +57,12 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("password", password)
             intent.putExtra("param", "Money Transfered Successfully")
             startActivity(intent)
+        }
+
+        buttonExit.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
