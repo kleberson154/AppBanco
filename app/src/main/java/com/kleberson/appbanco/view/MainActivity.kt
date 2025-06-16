@@ -32,7 +32,11 @@ class MainActivity : AppCompatActivity() {
         if (profile != null) {
             nameTextView.text = profile.firstName
             balanceTextView.text = formatBalance.format(profile.balance)
-            balanceCreditTextView.text = formatBalance.format(profile.limitCredit)
+            if (profile.balance > 0){
+                balanceCreditTextView.text = formatBalance.format(profile.limitCredit)
+            } else {
+                balanceCreditTextView.text = formatBalance.format(profile.limitCredit + profile.balance)
+            }
         }
 
         buttonDeposit.setOnClickListener {
