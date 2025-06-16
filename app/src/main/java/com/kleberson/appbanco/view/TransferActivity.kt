@@ -26,6 +26,7 @@ class TransferActivity: AppCompatActivity() {
         val param = intent.getStringExtra("param")
 
         val balanceTextView = findViewById<TextView>(R.id.textViewBalanceTransfer)
+        val balanceCreditTextView = findViewById<TextView>(R.id.textViewBalanceCreditTransfer)
         val buttonNextTransfer = findViewById<Button>(R.id.buttonNextTransfer)
         val inputTransfer = findViewById<EditText>(R.id.editTextInputTransfer)
         val inputEmail = findViewById<EditText>(R.id.editTextEmailTransfer)
@@ -35,12 +36,17 @@ class TransferActivity: AppCompatActivity() {
 
         if (profile != null) {
             balanceTextView.text = formatBalance.format(profile.balance)
+            if (profile.balance > 0){
+                balanceCreditTextView.text = formatBalance.format(profile.limitCredit)
+            } else {
+                balanceCreditTextView.text = formatBalance.format(profile.limitCredit + profile.balance)
+            }
         }
 
         buttonNextTransfer.setOnClickListener {
             if (profile != null) {
                 try {
-                    if (profile.balance >= inputTransfer.text.toString().toDouble()) {
+                    if ((profile.balance + profile.limitCredit) >= inputTransfer.text.toString().toDouble()) {
                         if (db.searchUser(inputEmail.text.toString())) {
                             accountController.transfer(email, inputTransfer.text.toString().toDouble(), inputEmail.text.toString())
                             val intent = Intent(this, SuccessActivity::class.java).apply {

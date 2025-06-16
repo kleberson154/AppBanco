@@ -24,7 +24,13 @@ class DepositActivity: AppCompatActivity() {
         val accountController = AccountController(this)
 
         buttonNextDeposit.setOnClickListener {
-            accountController.deposit(email, inputDeposit.text.toString().toDoubleOrNull() ?: 0.0)
+            if (inputDeposit.text.isEmpty()) {
+                inputDeposit.error = "Please enter a valid amount"
+                return@setOnClickListener
+            }else{
+                accountController.deposit(email, inputDeposit.text.toString().toDouble())
+            }
+
             val intent = Intent(this, SuccessActivity::class.java).apply {
                 putExtra("email", email)
                 putExtra("password", password)
