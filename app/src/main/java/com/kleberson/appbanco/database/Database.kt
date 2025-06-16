@@ -72,7 +72,8 @@ class Database(context: Context) : SQLiteOpenHelper(
         val cursor = db.rawQuery("SELECT * FROM account WHERE email = ?", arrayOf(email))
 
         if (cursor.moveToFirst()) {
-
+            val sql = "UPDATE account SET balance = balance + ? WHERE email = ?"
+            db.execSQL(sql, arrayOf(value, email))
             cursor.close()
         }
     }
