@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import com.kleberson.appbanco.model.Account
 
 class Database(context: Context) : SQLiteOpenHelper(
@@ -68,8 +69,12 @@ class Database(context: Context) : SQLiteOpenHelper(
 
     fun deposit(email: String, value: Double) {
         val db = writableDatabase
-        val sql = "UPDATE account SET balance = balance + ? WHERE email = ?"
-        db.execSQL(sql, arrayOf(value, email))
+        val cursor = db.rawQuery("SELECT * FROM account WHERE email = ?", arrayOf(email))
+
+        if (cursor.moveToFirst()) {
+
+            cursor.close()
+        }
     }
 
     @SuppressLint("Range", "Recycle")
@@ -80,11 +85,8 @@ class Database(context: Context) : SQLiteOpenHelper(
         if(cursor.moveToFirst()){
             val balance = cursor.getDouble(cursor.getColumnIndex("balance"))
             val limitCredit = cursor.getDouble(cursor.getColumnIndex("limitCredit"))
-
-            sql = if (value > balance){
-                "UPDATE account SET limitCredit = limitCredit - (? - balance), balance = 0.0 WHERE email = ?"
-            } else {
-                "UPDATE account SET balance = balance - ? WHERE email = ?"
+            if (balance + limitCredit > value) {
+                sql = "UPDATE account SET balance = balance - ? WHERE email = ?"
             }
             db.execSQL(sql, arrayOf(value, email))
         } else {
