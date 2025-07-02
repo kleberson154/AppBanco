@@ -1,5 +1,10 @@
-Video de Apresentacao: [video_AppBanco.webm](https://github.com/user-attachments/assets/d112e072-2c52-444a-934b-a7a15ba9da85)
+# App Banco
 
+## Video de Apresentacao
+
+https://github.com/user-attachments/assets/c15c6092-4b4c-42b5-b3b1-ac1a4ecba87e
+
+## Telas do App
 
 ![Captura de tela 2025-06-26 144357](https://github.com/user-attachments/assets/b742fbee-c697-4bf9-97ff-3f488eaa275d)
 ![Captura de tela 2025-06-26 144416](https://github.com/user-attachments/assets/9cc84cee-3325-4442-86ec-8dad7cdb8732)
