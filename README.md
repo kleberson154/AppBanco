@@ -6,6 +6,7 @@ https://github.com/user-attachments/assets/c15c6092-4b4c-42b5-b3b1-ac1a4ecba87e
 
 ## Telas do App
 
+![Captura de tela 2025-06-26 151156](https://github.com/user-attachments/assets/90d96a89-b713-457c-a7ea-6e2308f7c739)
 ![Captura de tela 2025-06-26 144357](https://github.com/user-attachments/assets/b742fbee-c697-4bf9-97ff-3f488eaa275d)
 ![Captura de tela 2025-06-26 144416](https://github.com/user-attachments/assets/9cc84cee-3325-4442-86ec-8dad7cdb8732)
 ![Captura de tela 2025-06-26 144439](https://github.com/user-attachments/assets/483627da-3549-4afe-a788-3c98c0f5e129)
