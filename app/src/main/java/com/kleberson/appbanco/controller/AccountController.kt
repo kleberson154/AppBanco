@@ -32,4 +32,13 @@ class AccountController(context: Context) {
     fun transfer(email: String, value: Double, inputEmail: String) {
         db.transfer(email, value, inputEmail)
     }
+
+    fun getInformationUser(email: String, password: String): Account? {
+        return db.getInformation(email, password)
+    }
+
+    fun deleteAccount(email: String) {
+        db.deleteAccount(email)
+    }
+
 }

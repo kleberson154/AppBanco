@@ -100,4 +100,29 @@ class Database(context: Context) : SQLiteOpenHelper(
         sake(email, value)
         deposit(inputEmail, value)
     }
+
+    fun getInformation(email: String, password: String): Account? {
+        val db = readableDatabase
+        val sql = "SELECT * FROM account WHERE email = ? AND password = ?"
+        val cursor = db.rawQuery(sql, arrayOf(email, password))
+        return if (cursor.moveToFirst()) {
+            val email = cursor.getString(cursor.getColumnIndex("email"))
+            val firstName = cursor.getString(cursor.getColumnIndex("firstName"))
+            val lastName = cursor.getString(cursor.getColumnIndex("lastName"))
+            val phone = cursor.getString(cursor.getColumnIndex("phone"))
+            val balance = cursor.getDouble(cursor.getColumnIndex("balance"))
+            val limitCredit = cursor.getDouble(cursor.getColumnIndex("limitCredit"))
+            cursor.close()
+            Account(email, password, firstName, lastName, phone, balance, limitCredit)
+        } else {
+            cursor.close()
+            null
+        }
+    }
+
+    fun deleteAccount(email: String) {
+        val db = writableDatabase
+        val sql = "DELETE FROM account WHERE email = ?"
+        db.execSQL(sql, arrayOf(email))
+    }
 }

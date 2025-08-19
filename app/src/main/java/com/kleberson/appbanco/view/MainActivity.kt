@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         val buttonSake = findViewById<Button>(R.id.buttonSake)
         val buttonTransfer = findViewById<Button>(R.id.buttonTransfer)
         val buttonExit = findViewById<Button>(R.id.buttonExit)
+        val buttonTransferPerfil = findViewById<Button>(R.id.buttonTransferPerfil)
         val profile = accountController.login(email, password)
 
         if (profile != null) {
@@ -67,6 +68,14 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        buttonTransferPerfil.setOnClickListener {
+            val intent = Intent(this, PerfilActivity::class.java)
+            intent.putExtra("email", email)
+            intent.putExtra("password", password)
+            intent.putExtra("param", "Account Deleted Successfully")
+            startActivity(intent)
         }
     }
 }
